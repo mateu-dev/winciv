@@ -13,6 +13,11 @@ float Distance(Vector2i, Vector2i);
 
 int RandInt(int, int, DistributionType = DistributionType::UNIFORM);
 bool Chance(int);
+template<typename T>
+inline T RandomFromVector(std::vector<T>& vec) {
+	return vec[RandInt(0, vec.size() - 1)];
+}
+
 
 template<typename T>
 inline bool Contains(std::vector<T>& vec, T val)
@@ -37,6 +42,7 @@ enum class BIOME {
 	DEEP_OCEAN = RGB(55, 133, 196),
 	SNOW = RGB(232, 247, 252),
 	DESERT = RGB(245, 240, 144),
+	FOREST = RGB(101, 176, 58),
 };
 
 struct Hex {
@@ -89,6 +95,10 @@ public:
 
 		float desertMinTemperature = 37;
 		float desertMaxHumidity = 50;
+
+		int forestCount = 50;
+		int averageForestSize = 30;
+		int forestSizeDeviation = 15;
 	};
 	GeneratorSettings genPreset;
 
@@ -112,4 +122,5 @@ public:
 	void CreateTemperatureMap(GeneratorSettings&);
 	void CreateHumidityMap(GeneratorSettings&);
 	void ContinentGenerator(GeneratorSettings&);
+	void SpawnForest(GeneratorSettings&);
 };

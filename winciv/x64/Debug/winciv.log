@@ -1,11 +1,22 @@
 ﻿  winciv.cpp
-C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(180,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(184,128): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(184,89): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(195,71): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(206,37): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(210,79): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(210,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(236,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(236,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(188,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(192,128): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(192,89): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(203,71): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(214,37): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(218,79): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(218,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(271,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(271,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\mateu\source\repos\winciv\winciv\winciv.h(18,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'winciv.cpp')
+  C:\Users\mateu\source\repos\winciv\winciv\winciv.h(18,35):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\mateu\source\repos\winciv\winciv\winciv.cpp(251,51):
+  	see reference to function template instantiation 'T *RandomFromVector<Hex*>(std::vector<Hex *,std::allocator<Hex *>> &)' being compiled
+          with
+          [
+              T=Hex *
+          ]
+  
   winciv.vcxproj -> C:\Users\mateu\source\repos\winciv\x64\Debug\winciv.exe

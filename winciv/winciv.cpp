@@ -93,6 +93,7 @@ void GameMap::GenerateMap(unsigned int seed)
 		}
 	}
 
+	// CREATE BASIC BIOMES
 	for (int x = 0; x < size.x; ++x)
 		for (int y = 0; y < size.y; ++y) {
 			Hex* current = tiles[x][y];
@@ -108,6 +109,7 @@ void GameMap::GenerateMap(unsigned int seed)
 			current->biome = biome;
 		}
 
+	// CREATE ADVANCED BIOMES & FIX EXISITNG
 	for (int x = 0; x < size.x; ++x)
 		for (int y = 0; y < size.y; ++y) {
 			Hex* current = tiles[x][y];
@@ -115,7 +117,13 @@ void GameMap::GenerateMap(unsigned int seed)
 				current->biome = BIOME::DEEP_OCEAN;
 			if (CountNeighboursOfType({ x,y }, BIOME::DESERT) >= 5)
 				current->biome = BIOME::DESERT;
+			if (current->biome == BIOME::DESERT && CountNeighboursOfType({ x,y }, BIOME::PLAINS) >= 5)
+				current->biome = BIOME::PLAINS;
 		}
+
+	// CREATE FEATURES
+	for (int i = 0; i < genPreset.forestCount; i++)
+		SpawnForest(genPreset);
 }
 
 Hex* GameMap::GetClosestTile(Vector2i position)
@@ -152,7 +160,7 @@ int GameMap::CountNeighboursOfType(Vector2i pos, BIOME biome)
 
 void GameMap::SpreadHeight(Hex* origin, int val, GeneratorSettings& preset)
 {
-	if (!origin) return;
+	if (origin == nullptr) return;
 	std::vector<Hex*> visited;
 	std::vector<Hex*> currentRing = { origin };
 	while (val > preset.minHeight) {
@@ -224,6 +232,33 @@ void GameMap::ContinentGenerator(GeneratorSettings& preset)
 	}
 }
 
+void GameMap::SpawnForest(GeneratorSettings& preset)
+{
+	int size = RandInt(preset.averageForestSize - preset.forestSizeDeviation, preset.averageForestSize + preset.forestSizeDeviation);
+	int currentSize = 0;
+	Hex* origin = nullptr;
+	while (origin == nullptr || origin->biome != BIOME::PLAINS) {
+		origin = GetRandomTile();
+	}
+	origin->biome = BIOME::FOREST;
+
+	std::vector<Hex*> forestTiles = { origin };
+
+	int controllValue = 0;
+	while (currentSize < size && controllValue < preset.averageForestSize*5) {
+		controllValue++;
+
+		std::vector<Hex*> spread = GetNeighbouringTiles(RandomFromVector(forestTiles)->mapPosition);
+		Hex* randomSpreadTile = RandomFromVector(spread);
+
+		if (CountNeighboursOfType(randomSpreadTile->mapPosition, BIOME::DESERT) > 0) continue;
+
+		randomSpreadTile->biome = BIOME::FOREST;
+		forestTiles.push_back(randomSpreadTile);
+		currentSize++;
+	}
+}
+
 // UTIL
 
 float Distance(Vector2f a, Vector2f b)
@@ -277,12 +312,11 @@ static void Update(HDC& hdc) {
 	if (win->inputState.rightButtonDown) {
 		Hex* clicked = map->GetClosestTile(currentMousePosition);
 		if (clicked) {
-			//clicked->biome = BIOME::PLAINS;
-			Print(clicked->temperature);
+			clicked->biome = BIOME::FOREST;
 		}
 	}
 
-	map->cameraScale = clamp(map->cameraScale + (win->inputState.scrollDirection / static_cast<float>(10)), .1f, 1.5f);
+	map->cameraScale = clamp(map->cameraScale + (win->inputState.scrollDirection / 10.0f), .1f, 1.5f);
 
 	lastMousePosition = currentMousePosition;
 	map->DrawMap(canvas);
